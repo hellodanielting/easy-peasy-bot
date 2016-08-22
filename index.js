@@ -92,13 +92,13 @@ controller.on('message', function (bot, message) {
     bot.reply(message, "Obey me ! I am your master !"),
     console.log(message.text);
 });
-//controller.hears('hello', 'direct_message', function (bot, message) {
-//    bot.reply(message, 'Hello!');
-//});
-
-controller.hears('alive', ['mention', 'direct_mention', 'direct_message'], apiai.hears, function (bot, message) {
-    bot.reply(message,  'HUMAN !!!! OMG');
+controller.hears('hello',  ['mention', 'direct_mention', 'direct_message'], function (bot, message) {
+    bot.reply(message, 'HHUMAN !!!! OMG');
 });
+
+//controller.hears('alive', ['mention', 'direct_mention', 'direct_message'], apiai.hears, function (bot, message) {
+//    bot.reply(message,  'HUMAN !!!! OMG');
+//});
 
 controller.hears('hello', ['mention', 'direct_mention', 'direct_message'], //apiai.hears, 
 function (bot, message) {
