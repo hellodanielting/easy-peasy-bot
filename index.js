@@ -56,6 +56,10 @@ if (process.env.TOKEN || process.env.SLACK_TOKEN) {
     process.exit(1);
 }
 
+var apiai = require('botkit-middleware-apiai')({
+   token: process.env.APIAI_TOKEN
+});
+controller.middleware.receive.use(apiai.receive);
 
 /**
  * A demonstration for how to handle websocket events. In this case, just log when we have and have not
@@ -82,13 +86,24 @@ controller.on('rtm_close', function (bot) {
 // BEGIN EDITING HERE!
 
 controller.on('bot_channel_join', function (bot, message) {
-    bot.reply(message, "I'm here!")
+    bot.reply(message, "Obey me ! I am your master !")
+});
+controller.on('message', function (bot, message) {
+    bot.reply(message, "Obey me ! I am your master !"),
+    console.log(message.text);
+});
+//controller.hears('hello', 'direct_message', function (bot, message) {
+//    bot.reply(message, 'Hello!');
+//});
+
+controller.hears('alive', ['mention', 'direct_mention', 'direct_message'], apiai.hears, function (bot, message) {
+    bot.reply(message,  'HUMAN !!!! OMG');
 });
 
-controller.hears('hello', 'direct_message', function (bot, message) {
-    bot.reply(message, 'Hello!');
+controller.hears('hello', ['mention', 'direct_mention', 'direct_message'], //apiai.hears, 
+function (bot, message) {
+       bot.reply(bot, message);
 });
-
 
 /**
  * AN example of what could be:
